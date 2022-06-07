@@ -26,7 +26,8 @@ class DetailActivity : AppCompatActivity() {
     companion object {
         const val DATA_PRODUK = "data_produk"
     }
-
+    
+    val temp_id: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +70,8 @@ class DetailActivity : AppCompatActivity() {
                 Response().postPesanan(
                     idProd = id_produk, idCust = idCust!!, tujuan = alamat!!, id_order = order_id!!, ctx = this
                 )
+                
+                Log.d("Order ID", temp_id)
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -89,7 +92,8 @@ class DetailActivity : AppCompatActivity() {
 
         btnBuy.setOnClickListener {
             order_id = idCust+ "-" + System.currentTimeMillis().toString()
-
+            
+            temp_id = order_id
             val transactionRequest = TransactionRequest(order_id, harga.toDouble())
             val detail = com.midtrans.sdk.corekit.models.ItemDetails(nama_produk, harga.toDouble(), 1, nama_produk)
             val itemDetails = ArrayList<com.midtrans.sdk.corekit.models.ItemDetails>()
